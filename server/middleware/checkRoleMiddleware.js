@@ -12,7 +12,7 @@ module.exports = function (role) {
         try {
             const token = req.headers.authorization.split(' ')[1];
             if (!token) {
-                return res.status(401).json({message: 'Авторизуйтесь'})
+                return res.status(401).json({message: 'Авторизуйтесьn'})
             }
             const decoded = jwt.verify(token, process.env.SECRET_KEY);
             if (decoded.role !== role) {
@@ -21,7 +21,7 @@ module.exports = function (role) {
             req.user = decoded;
             next()
         } catch (e) {
-            res.status(401).json({message: 'Авторизуйтесь'})
+            res.status(401).json({message: 'Авторизуйтесьr' + e})
         }
     };
 }
