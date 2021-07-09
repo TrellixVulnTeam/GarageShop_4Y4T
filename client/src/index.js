@@ -1,7 +1,7 @@
 import React, {createContext} from 'react';
 import ReactDOM from 'react-dom';
 import UserStore from "./store/UserStore.js";
-import DeviceStore from './store/DeviceStore.js';
+import WareStore from './store/WareStore.js';
 
 
 import App from './App';
@@ -12,7 +12,7 @@ export const Context = createContext(null)
 ReactDOM.render(
   <Context.Provider value={{
       user: new UserStore(),
-      divice: new DeviceStore()
+      ware: new WareStore()
   }}>
     <App />
   </Context.Provider>,

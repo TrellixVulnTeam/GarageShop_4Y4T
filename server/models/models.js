@@ -92,7 +92,7 @@ Brand.belongsToMany(Type, {through: TypeBrand});
 
 
 
-let options = { alter: true };
+let options = { force: true };
 
 User.sync(options);
 Basket.sync(options);

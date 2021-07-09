@@ -1,12 +1,49 @@
 
+
+@media screen and (min-width: 950px){
+    .wareItem{
+        width: 35% !important;
+    }
+}
+@media screen and (min-width: 1200px){
+    .wareItem{
+        width: 30% !important;
+    }
+}
 .dropdown-menu{
     left: 100%;
+}
+.des{
+    min-height: 300px;
+}
+.feedback{
+    min-height: 300px;
+}
+.size{
 
 }
+.headWare{
+    color:#474747
+}
 .navbar-brand{
-    font-size: 2rem !important;
+    font-size: 30pt !important;
     font-family: -apple-system;
 }
+.imgGoodsCart{
+    height: 70%;
+    width: 100%;
+}
+
+.wareItem img{
+   width: 100%;
+}
+.navNav{
+    font-family: "Courier New";
+    font-size: 16pt;
+}
+
+
+
 /*.nav-item{*/
 /*    margin: auto;*/
 /*}*/

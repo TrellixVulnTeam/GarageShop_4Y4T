@@ -1,8 +1,8 @@
 import React, {useContext} from 'react';
 import {Context} from "../index";
 import {Button, Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
-import {Shop_Route} from "../utils/constants";
-import {NavLink} from "react-router-dom";
+import {Admin_Route, Login_Route, Shop_Route} from "../utils/constants";
+import {NavLink, useHistory} from "react-router-dom";
 import Auth from "../pages/Auth";
 
 import {observer} from "mobx-react-lite";
@@ -10,15 +10,16 @@ import {observer} from "mobx-react-lite";
 
 
 const NavBar = observer( () => {
-    const {user} = useContext(Context)
+    const {user} = useContext(Context);
+    const history = useHistory();
     return (
         <>
-            <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+            <Navbar collapseOnSelect expand="lg" className={'mb-5'} bg="light" variant="light">
                 <Container>
-                    <Navbar.Brand href={Shop_Route} className={'mr-5'}>Garage Of The Day</Navbar.Brand>
+                    <Navbar.Brand href={Shop_Route} className={'mr-5 '}>Garage Of The Day</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav className="me-auto" >
+                        <Nav className="me-auto navNav" >
                             <NavLink className={'nav-link'} to={Shop_Route}>Главная</NavLink>
                             <NavDropdown title="Каталог" id="collasible-nav-dropdown">
                                 <NavDropdown title="Штаны" id="collasible-nav-dropdown">
@@ -71,14 +72,14 @@ const NavBar = observer( () => {
                         </Nav>
                         {user.isAuth ?
                             <Nav>
-                                <Button className={"m-1"} variant={'outline-secondary'} to={Auth}>Корзина</Button>
-                                <Button className={"m-1"} variant={'outline-secondary'} to={Auth}>Мой аккаунт</Button>
+                                <Button className={"m-1"} variant={'outline-secondary'} onClick={()=>{history.push(Admin_Route)}}>Корзина</Button>
+                                <Button className={"m-1"} variant={'outline-secondary'} onClick={()=>{history.push(Login_Route)}}>Мой аккаунт</Button>
                             </Nav>
                             :
 
                             <Nav>
                         {/*<Button className={"ml-lg-5"} variant={'outline-secondary'} to={Auth}>Корзина</Button>*/}
-                            <Button className={"m-1"} variant={'outline-secondary'} to={Auth} onClick={()=>user.setIsAuth(true)}>Авторизация</Button>
+                            <Button className={"m-1"} variant={'outline-secondary'} href={'/login'} >Авторизация</Button>
                             </Nav>
                         }
 

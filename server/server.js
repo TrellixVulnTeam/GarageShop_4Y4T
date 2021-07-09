@@ -10,7 +10,7 @@ const router = require('./routes/index.js');
 const path = require('path');
 const errorHandler = require('./middleware/ErrorHandlingMeddleware.js')
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 6000;
 
 
 const app = express();
@@ -28,7 +28,7 @@ const start = async ()=>{
     await sequelize.authenticate().then(()=>{console.log('connected to DB')});
     await sequelize.sync;
 
-    app.listen(PORT, () => console.log(`Server run on port ${PORT}`));
+    app.listen(PORT, () => console.log(`Server run on port ${PORT}`.magenta));
   } catch (err) {
     console.log(err);
   }
