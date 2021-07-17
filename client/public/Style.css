@@ -1,15 +1,5 @@
 
 
-@media screen and (min-width: 950px){
-    .wareItem{
-        width: 35% !important;
-    }
-}
-@media screen and (min-width: 1200px){
-    .wareItem{
-        width: 30% !important;
-    }
-}
 .dropdown-menu{
     left: 100%;
 }
@@ -42,7 +32,52 @@
     font-size: 16pt;
 }
 
+.wareItem{
+    display: flex;
+    margin: 35px;
+    flex-direction: column;
+    align-content: center;
+}
+.row{
+    margin-right: auto !important;
+}
+.images{
+    background-position: center;
+    background-size: 150%;
+    height: 70vw;
+    position: relative;
+    animation: imageSize 20s infinite;
+}
+.h-70vw{
+    height: 60vw;
+}
 
+.brdr{
+    border: aliceblue solid 3px;
+    margin-top: 10%;
+    font-size: 70px;
+    font-family: ui-monospace;
+    max-width: 70%;
+    color: aliceblue;
+
+}
+
+
+/*@media (min-width: 1024px){*/
+/*    .wareItem{*/
+/*        width: 20%;*/
+/*    }*/
+/*}*/
+/*@media (min-width: 900px){*/
+/*    .wareItem{*/
+/*        width: 40%;*/
+/*    }*/
+/*}*/
+/*@media (min-width: 600px){*/
+/*    .wareItem{*/
+/*        width: 90%;*/
+/*    }*/
+/*}*/
 
 /*.nav-item{*/
 /*    margin: auto;*/

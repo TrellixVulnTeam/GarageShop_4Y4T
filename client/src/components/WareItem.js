@@ -7,7 +7,7 @@ const WareItem = (props) => {
     const history = useHistory();
 
     return (
-        <div className={"border border-success wareItem pt-3 m-3"} onClick={()=>{history.push(Ware_Route + '/' + props.id)}}>
+        <Col md={3} className={"border border-success wareItem pt-3 "} onClick={()=>{history.push(Ware_Route + '/' + props.id)}}>
             <div>
                 <img src={ll}/>
             </div>
@@ -20,7 +20,7 @@ const WareItem = (props) => {
                 {props.id}
                 </div>
             </div>
-        </div>
+        </Col>
     );
 };
 

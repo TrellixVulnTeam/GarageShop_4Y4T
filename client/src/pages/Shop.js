@@ -1,16 +1,19 @@
 import React from 'react';
 import {Col, Container, Row} from "react-bootstrap";
 import WareList from "../components/WareList";
+import New from "../components/New";
 
 const Shop = () => {
     return (
-        <Container fluid={true}>
-            <Row>
-                <Col md={12}>
-                    <WareList/>
-                </Col>
-            </Row>
-        </Container>
+        <>
+            <New/>
+            <Container fluid={true}>
+
+                <Row>
+                        <WareList/>
+                </Row>
+            </Container>
+        </>
     );
 };
 

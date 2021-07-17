@@ -92,7 +92,18 @@ Brand.belongsToMany(Type, {through: TypeBrand});
 
 
 
-let options = { force: true };
+let options = { };
+
+User.create({});
+Basket.create({});
+BasketDevice.create({});
+Device.create({});
+Type.create({});
+Brand.create({});
+Rating.create({});
+DeviceInfo.create({});
+TypeBrand.create({});
+
 
 User.sync(options);
 Basket.sync(options);
@@ -106,15 +117,7 @@ TypeBrand.sync(options);
 
 
 
-User.create({});
-Basket.create({});
-BasketDevice.create({});
-Device.create({});
-Type.create({});
-Brand.create({});
-Rating.create({});
-DeviceInfo.create({});
-TypeBrand.create({});
+
 
 
 
