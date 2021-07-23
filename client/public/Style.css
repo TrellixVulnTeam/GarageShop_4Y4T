@@ -1,7 +1,9 @@
 
-
-.dropdown-menu{
-    left: 100%;
+.logo{
+  height: 50px;
+}
+.dropdown{
+    margin-left:20px;
 }
 .des{
     min-height: 300px;
@@ -11,6 +13,10 @@
 }
 .size{
 
+}
+.spinn{
+  left: 50%;
+  top: 50%;
 }
 .headWare{
     color:#474747
@@ -61,7 +67,12 @@
     color: aliceblue;
 
 }
-
+.account{
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 50px;
+    text-align: center;
+}
 
 /*@media (min-width: 1024px){*/
 /*    .wareItem{*/

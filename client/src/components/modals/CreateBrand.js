@@ -1,7 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, Form, Modal} from "react-bootstrap";
+import {createBrand} from "../../http/WareAPI";
+import {observer} from "mobx-react-lite";
 
-const CreateBrand = ({show, onHide}) => {
+
+
+const CreateBrand = observer(({show, onHide}) => {
+
+      const [value, setValue] = useState('');
+      const addBrand = ()=>{
+          createBrand({name: value}).then(()=>{
+              setValue('');
+              onHide();
+          })
+      };
     return (
         <Modal
             show={show}
@@ -17,17 +29,15 @@ const CreateBrand = ({show, onHide}) => {
             </Modal.Header>
             <Modal.Body>
                 <Form>
-                    <Form.Control placeholder={'Введите название бренда'}>
-
-                    </Form.Control>
+                    <Form.Control placeholder={'Введите название бренда'} onChange={(event)=>{setValue(event.target.value)}}/>
                 </Form>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant={'outline-success'} onClick={onHide}>Закрыть</Button>
-                <Button variant={'outline-danger'} onClick={onHide}>Добавить</Button>
+                <Button variant={'outline-danger'} onClick={addBrand}>Добавить</Button>
             </Modal.Footer>
         </Modal>
     );
-};
+});
 
 export default CreateBrand;

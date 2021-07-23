@@ -10,18 +10,23 @@ module.exports = function (role) {
         }
         ;
         try {
+            console.log('aaa start'.magenta);
+            console.log(req.magenta);
             const token = req.headers.authorization.split(' ')[1];
+            console.log('tokenread'.magenta);
+            console.log(token.magenta);
             if (!token) {
-                return res.status(401).json({message: 'Авторизуйтесьn'})
+                return res.status(401).json({message: 'Авторизуйтесьn '})
             }
             const decoded = jwt.verify(token, process.env.SECRET_KEY);
             if (decoded.role !== role) {
                 return res.status(403).json({message: 'У вас нет дуступа!'})
             }
             req.user = decoded;
+            console.log(decoded.magenta);
             next()
         } catch (e) {
-            res.status(401).json({message: 'Авторизуйтесьr' + e})
+            res.status(401).json({message: 'Авторизуйтесьr ' + e})
         }
     };
 }

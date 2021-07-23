@@ -4,7 +4,7 @@ const fileUpload = require('express-fileupload');
 const cors = require('cors');
 const sequelize = require('./db.js');
 const express = require('express');
-const {Sequelize} = require('sequelize');
+
 const models = require('./models/models');
 const router = require('./routes/index.js');
 const path = require('path');
@@ -25,7 +25,7 @@ app.use(errorHandler);
 
 const start = async ()=>{
   try {
-    await sequelize.authenticate().then(()=>{console.log('connected to DB')});
+    await sequelize.authenticate();
     await sequelize.sync;
 
     app.listen(PORT, () => console.log(`Server run on port ${PORT}`.magenta));

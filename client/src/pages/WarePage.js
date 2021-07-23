@@ -1,25 +1,32 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {Button, Col, Container, Row, Tab, Table, Tabs} from "react-bootstrap";
 import WareStore from "../store/WareStore";
+import {fetchOneWare} from '../http/WareAPI.js';
 import {Context} from "../index";
+import {useParams} from 'react-router-dom';
 import {useHistory} from "react-router-dom";
 import image from '../components/11.jpeg';
+import {observer} from "mobx-react-lite";
 
-const WarePage = (props) => {
-    const history = useHistory();
+const WarePage = observer((props) => {
 
-    const {ware} = useContext(Context);
+  const [ware, setWare] = useState({info: []})
+    const {id} = useParams();
+    useEffect(() => {
+        fetchOneWare(id).then((data) => {setWare(data);console.log(data);})
+    }, [])
+
     return (
         <Container >
             <Row>
                 <Col md={5}>
-                    <img className={'w-100'} src={image} />
+                    <img className={'w-100'} src={process.env.REACT_APP_API_URL + ware.img} />
                 </Col>
                 <Col md={7} className={'text-center'}>
                     <div className={'text-start'}>
-                        <h1 className={'mb-4 headWare'}>ПЛАТЬЕ GABRIELLE (СЛОНОВАЯ КОСТЬ)</h1>
+                        <h1 className={'mb-4 headWare'}>{ware.name}</h1>
 
-                        <h3 className={'headWare'}>25000 p</h3>
+                        <h3 className={'headWare'}>{ware.price}</h3>
                     </div>
                     <form className={'w-75 headWare'}>
                         <div className={'mt-5'}>
@@ -130,6 +137,6 @@ const WarePage = (props) => {
             </Row>
         </Container>
     );
-};
+});
 
 export default WarePage;

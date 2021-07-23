@@ -3,8 +3,9 @@ import {Switch, Route, Redirect} from 'react-router-dom';
 import {authRoutes, publicRoutes} from "../routes";
 import {Shop_Route} from "../utils/constants";
 import {Context} from "../index";
+import {observer} from "mobx-react-lite";
 
-const AppRouter = () => {
+const AppRouter = observer(() => {
     const {user} = useContext(Context);
 
 
@@ -19,6 +20,6 @@ const AppRouter = () => {
             <Redirect to = {Shop_Route} />
         </Switch>
     );
-};
+})
 
 export default AppRouter;

@@ -8,9 +8,12 @@ const WareList = observer(() => {
     const {ware} = useContext(Context)
     return (
         <Container fluid >
+        <h1 className={'mt-3'}>Новинки!</h1>
+        <hr className={'mt-3'}/>
             <Row className={'justify-content-center'}>
+
                 {ware.wares.map(ware =>
-                    <WareItem key={ware.id} id={ware.id} name={ware.name} price={ware.price} ware={ware}/>
+                    <WareItem key={ware.id} ware={ware}/>
                 )}
             </Row>
         </Container>

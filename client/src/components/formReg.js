@@ -19,29 +19,28 @@ const FormReg = observer(() => {
     const [include, setInclude] = useState();
 
     const signUp = async ()=>{
+        try {
+            let data;
 
-        let data;
-        if (password !== passwordDuplicate){
-            setInclude(<div style={{color: 'red'}}>Пароли не совпадают</div>)
-            return
-        }
+            if (password !== passwordDuplicate){
+                setInclude('Введенные пароли не совпадают')
+                return
+            }
+
             data = await registration(login,email,password);
-        console.log(data);
-        switch (data){
-            case 400:
-                setInclude(<div style={{color: '#ff5d00'}}>Заполните все поля</div>);
-                break;
-            case 409.1:
-                setInclude(<div style={{color: '#ff5d00'}}><p>Аккаунт с таким логином уже существует</p><p>Придумайте новый!</p></div>);
-                break;
-            case 409.2:
-                setInclude(<div style={{color: '#ff5d00'}}><p>Аккаунт с таким email уже существует</p></div>);
-                break;
-        };
-        user.setUser(user);
-        console.log(user)
-        user.setIsAuth(true);
-        history.push(Shop_Route);
+
+            console.log(data);
+
+            user.setUser(user);
+            console.log(user)
+            user.setIsAuth(true);
+            history.push(Shop_Route);
+        }catch (e){
+
+            setInclude(e.response.data.message);
+
+        }
+
 
     };
 
@@ -55,7 +54,7 @@ const FormReg = observer(() => {
                 <Form.Control className={'mt-3'} name={'password'} value={password} onChange={(event)=>{setPassword(event.target.value); setInclude(null)}} placeholder={'Придумайте пароль'} type={'password'} />
                 <Form.Control className={'mt-3'} name={'passwordDuplicate'} value={passwordDuplicate} onChange={(event)=>{setPasswordDuplicate(event.target.value); setInclude(null)}} placeholder={'Повторите пароль'} type={'password'} />
 
-                <div>{include}</div>
+                <div style={{color: 'red'}}>{include}</div>
 
                 <Row className={'d-flex justify-content-between pl-5 pr-5 m-auto mt-3 flex-row'}>
                     <div>

@@ -17,28 +17,19 @@ const FormAuth = observer( () => {
 
 
     const signIn = async ()=>{
-        let data;
+        try {
+          let data;
 
-        data = await login(loginOrEmail,password);
-        console.log(data);
-        switch (data){
-            case 400.1:
-                setInclude(<div style={{color: '#ff5d00'}}>Введите логин или email</div>);
-                break;
-            case 400.2:
-                setInclude(<div style={{color: '#ff5d00'}}>Введите пароль</div>);
-                break;
-            case 400.3:
-                setInclude(<div style={{color: '#ff5d00'}}>Такой пароль не подходит</div>);
-                break;
-            case 409:
-                setInclude(<div style={{color: '#ff5d00'}}><p>Такой аккаунт не найден</p><p>Зарегистрируйтесь!</p></div>);
-                break;
-        };
-        user.setUser(user);
-        console.log(user)
-        user.setIsAuth(true);
-        history.push(Shop_Route);
+          data = await login(loginOrEmail,password);
+
+          user.setUser(data.user);
+          console.log(user)
+          user.setIsAuth(true);
+          history.push(Shop_Route);
+        } catch (e) {
+          setInclude(e.response.data.message);
+        }
+
     }
 
 
@@ -50,7 +41,7 @@ const FormAuth = observer( () => {
                 <Form className={'d-flex flex-column p-2'}>
                     <Form.Control className={'mt-5'} name={'loginOrEmail'} value={loginOrEmail} onChange={(event)=> {setLoginOrEmail(event.target.value);setInclude(null)}} placeholder={'Введите логин или e-mail'} type={'email'} />
                     <Form.Control className={'mt-5'} name={'password'} value={password} onChange={(event)=> {setPassword(event.target.value);setInclude(null)}} placeholder={'Введите пароль'} type={'password'} />
-                    <div className={'mt-2'}>{include}</div>
+                    <div style={{color: 'red'}}>{include}</div>
                     <Row className={'d-flex justify-content-between pl-5 pr-5 m-auto mt-3 flex-row'}>
                         <div>
                             Нет аккаунта? <NavLink to={Registration_Route}>Зарегистрируйся!</NavLink>

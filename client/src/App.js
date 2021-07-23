@@ -8,6 +8,7 @@ import New from "./components/New";
 import {observer} from "mobx-react-lite";
 import {Context} from "./index";
 import {check} from "./http/userAPI";
+import {Spinner} from "react-bootstrap";
 
 
 
@@ -15,14 +16,18 @@ const App = observer(() => {
     const {user} = useContext(Context);
     const [loading, setLoading]= useState(true);
 
-    useEffect(()=>{
-        check().then(data =>{
-            user.setUser(true);
-            user.setIsAuth(true);
 
-        })
-    })
+        useEffect(()=>{
+            check().then(data =>{
+                user.setUser(true);
+            }).finally(()=> setLoading(false))
+        }, [])
 
+    if (loading){
+        return  <div className="position-absolute spinn spinner-border" role="status">
+                    <span className="sr-only"></span>
+                </div>
+    }
     return (
     <BrowserRouter>
         <NavBar />
