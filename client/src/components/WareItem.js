@@ -4,7 +4,7 @@ import {Col} from "react-bootstrap";
 import {Ware_Route} from "../utils/constants";
 const WareItem = ({ware}) => {
     const history = useHistory();
- console.log(ware.typeId);
+    console.log(ware.typeId);
     return (
         <Col md={3} className={"border border-success wareItem pt-3 "} onClick={()=>{history.push(Ware_Route + '/' + ware.id)}}>
             <div>

@@ -9,18 +9,28 @@ import {observer} from "mobx-react-lite";
 const Shop = observer(() => {
     const {ware} = useContext(Context);
     useEffect(()=>{
+      console.log(ware);
         fetchTypes().then((data) => {ware.setTypes(data);});
         fetchBrands().then((data) => {ware.setBrands(data);});
-        console.log('setWares');
-        fetchWares(null, null).then((data) => {console.log(data);ware.setWares(data.rows)})
+        console.log(ware.selectedType);
+        fetchWares(1,1).then((data) => {console.log(data);ware.setWares(data.rows)})
     },[]);
+
+    useEffect(() => {
+        fetchWares(ware.selectedType.id, ware.selectedBrand.id).then(data => {
+          console.log(data);
+          ware.setWares(data.rows);
+          ware.setTotalCount(data.count)
+
+        })
+    }, [ware.selectedType, ware.selectedBrand])
     return (
         <>
             <New/>
             <Container fluid={true}>
 
                 <Row className={'text-center'}>
-                        
+
                         <WareList/>
                 </Row>
             </Container>

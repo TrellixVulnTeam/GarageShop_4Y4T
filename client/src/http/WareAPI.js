@@ -31,7 +31,9 @@ export const createWare = async (ware)=>{
 };
 export const fetchWares = async (typeId, brandId)=>{
   try {
-    const {data} = await $host.get('api/ware')
+    console.log(typeId);
+    console.log(brandId);
+    const {data} = await $host.get('api/ware', {params:{typeId, brandId}})
     console.log(data);
     return data
   } catch (e) {

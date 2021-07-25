@@ -30,10 +30,14 @@ class WareController {
 
 
   async getAll (req, res) {
+    //тут всё прекрасно не трогай запросы
+  
       console.log('getAllWares'.red);
       let {brandId, typeId} = req.query
+      console.log('getAllWares'.red);
+      console.log(brandId);
 
-      console.log(req.body);
+      console.log(typeId);
       console.log(req.query);
       console.log('getAllWares'.red);
 

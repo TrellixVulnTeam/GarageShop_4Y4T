@@ -32,12 +32,12 @@ const NavBar = observer( () => {
                             <NavLink className={'nav-link'} to={Shop_Route}>Главная</NavLink>
                             <NavDropdown title="Каталог" id="dropdown-basic">
                                     {ware.types.map(type =>
-                                        <NavDropdown.Item key={type.id} onClick={() => {ware.setSelectedType(type);console.log(ware.selectedType.name)}}>{type.name}</NavDropdown.Item>
+                                        <NavDropdown.Item key={type.id} onClick={() => {ware.setSelectedType(type);console.log(ware.selectedType)}}>{type.name}</NavDropdown.Item>
                                     )}
                             </NavDropdown>
                             <NavDropdown  title="Покупателям" >
                                     {ware.brands.map(brand =>
-                                        <NavDropdown.Item key={brand.id} onClick={() => {ware.setSelectedBrand(brand);console.log(ware.selectedBrand.name);}}>{brand.name}</NavDropdown.Item>
+                                        <NavDropdown.Item key={brand.id} onClick={() => {ware.setSelectedBrand(brand);console.log(ware.selectedBrand)}}>{brand.name}</NavDropdown.Item>
                                     )}
                             </NavDropdown>
 
