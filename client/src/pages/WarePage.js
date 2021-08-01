@@ -5,24 +5,44 @@ import {fetchOneWare} from '../http/WareAPI.js';
 import {Context} from "../index";
 import {useParams} from 'react-router-dom';
 import {useHistory} from "react-router-dom";
+
 import image from '../components/11.jpeg';
 import {observer} from "mobx-react-lite";
+import {fetchBrands, fetchWares, fetchTypes, addToCart} from "../http/WareAPI";
+import jwt_decode from "jwt-decode";
+
+
 
 const WarePage = observer((props) => {
+  const {user} = useContext(Context);
+    let token = localStorage.getItem('token');
+    console.log(token);
 
-  const [ware, setWare] = useState({info: []})
+
+
+    const [ware, setWare] = useState({info: []})
     const {id} = useParams();
     useEffect(() => {
         fetchOneWare(id).then((data) => {setWare(data);console.log(data);})
-    }, [])
+    }, []);
+    console.log(user.isAuth);
+    const addToCartbtn = ()=>{
+
+      if (token) {
+        let userName = jwt_decode(token);
+        console.log(userName.id.id);
+        addToCart(id, userName.id.id);
+      }
+
+    }
 
     return (
         <Container >
             <Row>
-                <Col md={5}>
+                <Col md={6}>
                     <img className={'w-100'} src={process.env.REACT_APP_API_URL + ware.img} />
                 </Col>
-                <Col md={7} className={'text-center'}>
+                <Col md={6} className={'text-center'}>
                     <div className={'text-start'}>
                         <h1 className={'mb-4 headWare'}>{ware.name}</h1>
 
@@ -30,7 +50,7 @@ const WarePage = observer((props) => {
                     </div>
                     <form className={'w-75 headWare'}>
                         <div className={'mt-5'}>
-                            <h3>Размер верха:</h3>
+                            <h3>Размер</h3>
                             <select style={{color:'#474747',height:'30px'}} className={'w-100 text-center border-success'}>
                                 <option value="XS">XS</option>
                                 <option value="S">S</option>
@@ -41,34 +61,9 @@ const WarePage = observer((props) => {
                                 <option value="XXXL">XXXL</option>
                             </select>
                         </div>
-                        <div className={'mt-5'}>
-                            <h3>Размер низа:</h3>
 
-                            <select style={{color:'#474747',height:'30px'}} className={'w-100 text-center border-success'}>
-                                <option value="XS">XS</option>
-                                <option value="S">S</option>
-                                <option value="M">M</option>
-                                <option value="L">L</option>
-                                <option value="XL">XL</option>
-                                <option value="XXL">XXL</option>
-                                <option value="XXXL">XXXL</option>
-                            </select>
-                        </div>
-                        <div className={'mt-5 mb-5'}>
-                            <h3>Рост:</h3>
-
-                            <select style={{color:'#474747',height:'30px'}} className={'w-100  text-center border-success'}>
-                                <option value="XS">XS</option>
-                                <option value="S">S</option>
-                                <option value="M">M</option>
-                                <option value="L">L</option>
-                                <option value="XL">XL</option>
-                                <option value="XXL">XXL</option>
-                                <option value="XXXL">XXXL</option>
-                            </select>
-                        </div>
                         <hr />
-                        <Button variant={'outline-warning'}>В корзину</Button>
+                        <Button className={'btn btn-primary btnAddToBasket'}  onClick={addToCartbtn}>В корзину</Button>
                     </form>
 
                 </Col>
@@ -78,15 +73,7 @@ const WarePage = observer((props) => {
                     <Tab eventKey="home" title="Описание">
                         <Col md={9} className={'border-primary w-100 text-lg-start des'}>
                             <p>
-                                Трикотажный комплект с объёмным худи и прямыми брюками лапша. Комплект состоит из двух самостоятельных моделей оверсайз кроя. Худи со спущенной линией плеча, капюшоном, карманом. Брюки с высокой посадкой, мягкой резинкой, и регулируемыми завязками, прямого силуэта.
 
-                                Состав: 50% шерсть, 50% хлопок
-
-
-
-                                Параметры модели: грудь 86 см, талия 60 см, бёдра 90 см
-
-                                Размер одежды на модели: S
                             </p>
                         </Col>
                     </Tab>

@@ -9,7 +9,8 @@ import {observer} from "mobx-react-lite";
 import {Context} from "./index";
 import {check} from "./http/userAPI";
 import {Spinner} from "react-bootstrap";
-
+import './style.css';
+import jwt_decode from 'jwt-decode';
 
 
 const App = observer(() => {
@@ -18,9 +19,15 @@ const App = observer(() => {
 
 
         useEffect(()=>{
-            check().then(data =>{
-                user.setUser(true);
-            }).finally(()=> setLoading(false))
+          const token = localStorage.getItem('token');
+
+          if (token) {
+            const data = jwt_decode(token);
+            console.log(data);
+                user.setUser(data.id);
+                user.setIsAuth(true)
+          };
+          setLoading(false)
         }, [])
 
     if (loading){

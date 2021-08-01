@@ -1,7 +1,7 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {Context} from "../index";
 import {Button, Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
-import {Account_Route, Admin_Route, Login_Route, Shop_Route} from "../utils/constants";
+import {Account_Route, Admin_Route, Login_Route, Shop_Route, Basket_Route} from "../utils/constants";
 import {NavLink, useHistory} from "react-router-dom";
 import Auth from "../pages/Auth";
 import {BsPerson} from 'react-icons/bs';
@@ -19,8 +19,10 @@ const NavBar = observer( () => {
     const history = useHistory();
     const logOut = ()=>{
         user.setIsAuth(false);
+        localStorage.removeItem('token');
         user.setUser({})
     };
+    console.log(user._user.role);
     return (
         <>
             <Navbar collapseOnSelect expand="lg" className={'mb-2'} bg="light" variant="light">
@@ -45,10 +47,9 @@ const NavBar = observer( () => {
                         </Nav>
                         {user.isAuth ?
                             <Nav>
-                                <Button className={"m-1 p-1 border-0"} variant={'outline-secondary'} onClick={()=>{history.push(Shop_Route);}}><h3 className={'m-0'}><RiShoppingCart2Line /></h3></Button>
-                                <Button className={"m-1 p-1 border-0"} variant={'outline-secondary'} onClick={()=>{history.push(Account_Route);}}><h3 className={'m-0'}><BsPerson /></h3></Button>
+                                <Button className={"m-1 p-1 border-0"} variant={'outline-secondary'} onClick={()=>{history.push(Basket_Route);}}><h3 className={'m-0'}><RiShoppingCart2Line /></h3></Button>
+                                <Button className={"m-1 p-1 border-0"} variant={'outline-secondary'} onClick={()=>{if(user._user.role == 'ADMIN'){history.push(Admin_Route);return};history.push(Account_Route)}}><h3 className={'m-0'}><BsPerson /></h3></Button>
                                 <Button className={"m-1 p-1 border-0"} variant={'outline-secondary'} onClick={()=>{
-                                    let aaa = localStorage;
                                     logOut();
                                     history.push(Shop_Route);
                                 }}><h3 className={'m-0'}><FiLogOut /></h3></Button>

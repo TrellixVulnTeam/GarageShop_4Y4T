@@ -31,7 +31,7 @@ class WareController {
 
   async getAll (req, res) {
     //тут всё прекрасно не трогай запросы
-  
+
       console.log('getAllWares'.red);
       let {brandId, typeId} = req.query
       console.log('getAllWares'.red);
@@ -61,7 +61,7 @@ class WareController {
   };
   async getOne (req, res) {
       const {id} = req.params;
-      console.log(req.params.id);
+
       const ware = await Ware.findOne({
           where: {id}
       })

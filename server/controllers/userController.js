@@ -32,9 +32,11 @@ class userController {
 
 
         if (emailCandidate){
+            console.log('email существует'.magenta);
             return next(ApiError.badRequest({message: 'Пользователь с таким email уже существует'}));
         };
         if (loginCandidate){
+          console.log('login существует'.magenta);
             return next(ApiError.badRequest('Пользователь с таким login уже существует'));
         };
 
@@ -44,6 +46,8 @@ class userController {
         const hashPassword = await bcrypt.hash(password, 5);
         console.log('1'.magenta);
         const user = await User.create({email, login, role, password: hashPassword});
+        console.log(user.id);
+        const basket = await Basket.create({userId: user.id})
         console.log('2'.magenta);
 
         console.log('3'.magenta);

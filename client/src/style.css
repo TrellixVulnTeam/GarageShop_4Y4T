@@ -2,6 +2,12 @@
 .logo{
   height: 50px;
 }
+.bskImg{
+  width: 60%;
+}
+.basketItem{
+  margin-top: 10px;
+}
 .btnAddToBasket{
 color: #fff !important;
 border-radius:1px !important;
@@ -24,7 +30,15 @@ background-color: #fff !important;
     min-height: 300px;
 }
 .size{
+  border: 1px #ffa800 solid;
 
+  font-family: "Courier New";
+}
+.size a {
+  color: #000;
+}
+.basketH1{
+  font-family: "Courier New";
 }
 .spinn{
   left: 50%;

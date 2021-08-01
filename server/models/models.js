@@ -14,11 +14,12 @@ const User = sequelize.define('user',{
   });
 
 const Basket = sequelize.define('basket',{
-    id: {type:DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    id: {type:DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false},
   });
 
 const BasketWare = sequelize.define('basket_ware',{
-    id: {type:DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    id: {type:DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false},
+
   });
 
 const Ware = sequelize.define('ware',{
@@ -91,7 +92,7 @@ Brand.belongsToMany(Type, {through: TypeBrand});
 
 
 
-let options = { };
+let options = {alter: true};
 
 User.create({});
 Basket.create({});
@@ -105,11 +106,11 @@ TypeBrand.create({});
 
 
 User.sync(options);
-Basket.sync(options);
-BasketWare.sync(options);
 Ware.sync(options);
 Type.sync(options);
 Brand.sync(options);
+Basket.sync(options);
+BasketWare.sync(options);
 Rating.sync(options);
 WareInfo.sync(options);
 TypeBrand.sync(options);
@@ -120,7 +121,7 @@ TypeBrand.sync(options);
 
 
 
-//Взаимодействие моделей
+//Взаимодействие моделей     // quantity: {type:DataTypes.INTEGER, allowNull: false},
 
 
 

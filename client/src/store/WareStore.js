@@ -5,6 +5,7 @@ export default class WareStore {
         this._types = [];
         this._brands = [];
         this._wares = [];
+        this._waresInBasket = [];
         this._selectedType = {};
         this._selectedBrand = {};
         this._page = 1;
@@ -20,6 +21,9 @@ export default class WareStore {
     };
     setWares(wares){
         this._wares = wares;
+    };
+    setWaresInBasket(waresInBasket){
+      this._waresInBasket = waresInBasket
     };
     setSelectedType(type) {
         this.setPage(1)
@@ -45,6 +49,9 @@ export default class WareStore {
     get wares(){
         return this._wares
     };
+    get waresInBasket (){
+      return this._waresInBasket
+    }
     get selectedType() {
         return this._selectedType
     };

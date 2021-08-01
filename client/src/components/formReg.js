@@ -32,12 +32,21 @@ const FormReg = observer(() => {
             console.log(data);
 
             user.setUser(user);
-            console.log(user)
+
             user.setIsAuth(true);
             history.push(Shop_Route);
         }catch (e){
-
-            setInclude(e.response.data.message);
+            if (e.response.data.message.message == true) {
+              setInclude(e.response.data.message.message);
+              return
+            }else if (e.response.data.message == true) {
+              setInclude(e.response.data.message)
+              return
+            }else {
+              setInclude('Ошибка')
+              return
+            }
+            //Возможны проблемы с выводом сообщения, ничего страшного просто убери .message
 
         }
 
