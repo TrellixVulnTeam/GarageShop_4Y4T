@@ -10,7 +10,7 @@ import img4 from './images/4.jpg';
 
 const New = () => {
     return (
-        <div className={'w-100 mb-5'}>
+        <div className={'w-100 mb-5 mt-2'}>
             <Carousel fade controls={false} pause={false}>
                 <Carousel.Item>
                     <div className={'h-70vw'}>

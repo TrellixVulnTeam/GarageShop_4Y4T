@@ -1,6 +1,7 @@
 import React, {useContext, useEffect} from 'react';
 import {Col, Container, Row} from "react-bootstrap";
 import BasketList from "../components/basketList.js";
+import BasketForm from "../components/BasketForm.js";
 import New from "../components/New";
 import {Context} from "../index";
 import {fetchBrands, fetchWares, fetchTypes} from "../http/WareAPI";
@@ -16,6 +17,7 @@ const Basket = observer(() => {
                 <h1 className={'m-3 basketH1'}>Корзина ебучая</h1>
                 <Row className={'text-center m-3'}>
                     <BasketList />
+                    <BasketForm />
                 </Row>
             </Container>
         </>

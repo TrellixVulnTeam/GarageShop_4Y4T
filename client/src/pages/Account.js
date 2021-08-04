@@ -9,23 +9,23 @@ import {observer} from "mobx-react-lite";
 const Account = observer(() => {
     let token = localStorage.getItem('token');
     console.log(token);
-    let userName = jwt_decode(token);
-    console.log(userName)
-    const {user} = useContext(Context);
-    console.log(user.login);
+    let userName = jwt_decode(token).id;
     console.log(userName);
+    const {user} = useContext(Context);
     return (
         <Container fluid={true}>
             <Row>
-
+                <h1>Ваши данные</h1>
             </Row>
-            <div className={'account login'}>
-                {userName.login}
-            </div>
-            <hr/>
-            <div className={'account emailacc'}>
-                {userName.email}
-            </div>
+            <Row>
+                <div className={'account login'}>
+                    {userName.login}
+                </div>
+                <hr/>
+                <div className={'account emailacc'}>
+                    {userName.email}
+                </div>
+            </Row>
 
         </Container>
     );

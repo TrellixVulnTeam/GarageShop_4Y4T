@@ -25,7 +25,7 @@ const NavBar = observer( () => {
     console.log(user._user.role);
     return (
         <>
-            <Navbar collapseOnSelect expand="lg" className={'mb-2'} bg="light" variant="light">
+            <Navbar collapseOnSelect expand="lg"  bg="light" variant="light">
                 <Container>
                     <Navbar.Brand href={Shop_Route} className={'mr-5 '}><img className={'logo'} src={logo}></img></Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />

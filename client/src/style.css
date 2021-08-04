@@ -7,6 +7,16 @@
 }
 .basketItem{
   margin-top: 10px;
+  font-family: "Courier New";
+}
+.adminIconsH1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.FormToSale{
+  font-family: "Courier New";
 }
 .btnAddToBasket{
 color: #fff !important;
