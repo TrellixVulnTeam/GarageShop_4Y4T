@@ -13,7 +13,7 @@ module.exports = function (role) {
             console.log('aaa start'.magenta);
             console.log(req.headers.magenta);
             const token = req.headers.authorization.split(' ')[1];
-            console.log('tokenread'.magenta);
+            console.log('tokenread checkRoloe'.magenta);
             console.log(token.magenta);
             if (!token) {
                 return res.status(401).json({message: 'Авторизуйтесьn '})

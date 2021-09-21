@@ -3,20 +3,19 @@ import {Container} from "react-bootstrap";
 
 const Footer = () => {
     return (
-        <Container>
-            <div className="row fii row-30">
+        <Container className={'footer'}>
+            <div className="row fii row-30 courierNew">
                 <div className="col-md-4 col-xl-5">
-                    <div className="pr-xl-4"><a className="brand" href="/"></a>
-                        <p>We are an award-winning creative agency, dedicated to the best result in web
-                            design,
-                            promotion, business consulting, and marketing.</p>
-
+                    <div className="pr-xl-4 m-5"><a className="brand" href="/"></a>
+                        <p className = {'courierNew'}>ИП Рогозина Арина Михайловна</p>
+                        <p className = {'courierNew'}>ИНН: 500314701427</p>
+                        <p className = {'courierNew'}>ОГРНИП: 320508100210242</p>
                         <p className="rights"><span>©  </span><span
                             className="copyright-year">2020</span><span> </span><span>Neutrino</span><span>. </span><span>Все права защищены.</span>
                         </p>
                     </div>
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-4 mt-5">
                     <h5>Contacts</h5>
                     <dl className="contact-list">
                         <dt>email:</dt>
@@ -28,14 +27,7 @@ const Footer = () => {
                         </dd>
                     </dl>
                 </div>
-                <div className="orange col-md-4 col-xl-3">
-                    <h5>Links</h5>
-                    <ul className="nav-list">
-                        <li><a href="#">Projects</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Contacts</a></li>
-                    </ul>
-                </div>
+                
             </div>
         </Container>
     );

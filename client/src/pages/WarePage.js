@@ -1,5 +1,5 @@
 import React, {useContext, useState, useEffect} from 'react';
-import {Button, Col, Container, Row, Tab, Table, Tabs} from "react-bootstrap";
+import {Button, Col, Container, Row, Tab, Table, Tabs, Form} from "react-bootstrap";
 import WareStore from "../store/WareStore";
 import {fetchOneWare} from '../http/WareAPI.js';
 import {Context} from "../index";
@@ -10,30 +10,57 @@ import image from '../components/11.jpeg';
 import {observer} from "mobx-react-lite";
 import {fetchBrands, fetchWares, fetchTypes, addToCart} from "../http/WareAPI";
 import jwt_decode from "jwt-decode";
+import {Ware_Route} from '../utils/constants.js';
 
 
 
 const WarePage = observer((props) => {
   const {user} = useContext(Context);
     let token = localStorage.getItem('token');
-    console.log(token);
+    let history = useHistory();
 
 
 
     const [ware, setWare] = useState({info: []})
+    const [counts, setCounts] = useState(1);
     const {id} = useParams();
     useEffect(() => {
+        
         fetchOneWare(id).then((data) => {setWare(data);console.log(data);})
     }, []);
-    console.log(user.isAuth);
+
     const addToCartbtn = ()=>{
 
       if (token) {
         let userName = jwt_decode(token);
         console.log(userName.id.id);
-        addToCart(id, userName.id.id);
+        addToCart(id, counts, userName.id.id);
+      }else{
+            
+            let wares = ware;
+            wares.count = counts;
+          
+            let waresInLocalstorage = localStorage.getItem('waresInLocalstorage');
+            if(waresInLocalstorage){
+                let array = JSON.parse(localStorage.getItem('waresInLocalstorage'));
+                array.push(wares)
+                array.map((item, index) =>{
+                    for(let i = index + 1;i < array.length; i++){
+                        if(item.id == array[i].id){
+                            item.count++;
+                            array.splice(i, 1);
+                            i--;
+                        }
+                    }
+                })
+                localStorage.waresInLocalstorage = JSON.stringify(array)
+            }else{
+                let waresInLocalstorage = [wares];
+                localStorage.setItem('waresInLocalstorage', JSON.stringify(waresInLocalstorage));
+            }
+          
       }
-
+    window.location = Ware_Route +'/' + id;
     }
 
     return (
@@ -44,13 +71,13 @@ const WarePage = observer((props) => {
                 </Col>
                 <Col md={6} className={'text-center'}>
                     <div className={'text-start'}>
-                        <h1 className={'mb-4 headWare'}>{ware.name}</h1>
+                        <h1 className={'mb-4 headWare courierNew'}>{ware.name}</h1>
 
-                        <h3 className={'headWare'}>{ware.price}</h3>
+                        <h3 className={'headWare fontPrice'}>{ware.price}₽ </h3>
                     </div>
                     <form className={'w-75 headWare'}>
                         <div className={'mt-5'}>
-                            <h3>Размер</h3>
+                            <h3 className = {'courierNew'}>Размер</h3>
                             <select style={{color:'#474747',height:'30px'}} className={'w-100 text-center border-success'}>
                                 <option value="XS">XS</option>
                                 <option value="S">S</option>
@@ -63,9 +90,22 @@ const WarePage = observer((props) => {
                         </div>
 
                         <hr />
-                        <Button className={'btn btn-primary btnAddToBasket'}  onClick={addToCartbtn}>В корзину</Button>
+                        <div className={'d-flex'}>
+                            <div className={'d-flex m-auto plusMinus'}>
+                                <div className={'minus'} onClick={()=>{setCounts(counts-1)}}>-</div>
+                                    <Form.Control name={'count'} className={'plusMinusInput p-0 text-center'} value={counts} size={'2'} onChange={(event)=> {setCounts(event.target.value);}} type={'number'} min={'0'} inputmode={"numeric"} />
+                                <div className={'plus'} onClick={()=>{setCounts(counts-1+2); console.log(counts)}}>+</div>
+                            </div>
+                            <Button className={'btn btn-primary btnAddToBasket m-auto'}  onClick={addToCartbtn}>В корзину</Button>
+                            
+                        </div>
                     </form>
-
+                    <div className = {'mt-5 '}>
+                        <h2 className = {'headDiscript text-center'}>Описание</h2>
+                        <div className = {"discript m-auto"}>
+                             <h4 className = {'m-auto font-weight-light'}>{ware.discription}</h4>
+                        </div>
+                    </div>
                 </Col>
             </Row>
             <Row className={'mt-5 mb-5 '}>

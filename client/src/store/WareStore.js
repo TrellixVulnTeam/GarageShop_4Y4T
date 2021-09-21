@@ -5,6 +5,10 @@ export default class WareStore {
         this._types = [];
         this._brands = [];
         this._wares = [];
+        this._waresNew = [];
+        this._waresT1 = [];
+        this._waresT2 = [];
+        this._waresT3 = [];
         this._waresInBasket = [];
         this._selectedType = {};
         this._selectedBrand = {};
@@ -21,6 +25,18 @@ export default class WareStore {
     };
     setWares(wares){
         this._wares = wares;
+    };
+    setWaresNew(wares){
+        this._waresNew = wares;
+    };
+    setWaresT1(wares){
+        this._waresT1 = wares;
+    };
+    setWaresT2(wares){
+        this._waresT2 = wares;
+    };
+    setWaresT3(wares){
+        this._waresT3 = wares;
     };
     setWaresInBasket(waresInBasket){
       this._waresInBasket = waresInBasket
@@ -49,6 +65,19 @@ export default class WareStore {
     get wares(){
         return this._wares
     };
+    get waresNew(){
+        return this._waresNew
+    };
+    get waresT1(){
+        return this._waresT1
+    };
+    get waresT2(){
+        return this._waresT2
+    };
+    get waresT3(){
+        return this._waresT3
+    };
+    
     get waresInBasket (){
       return this._waresInBasket
     }

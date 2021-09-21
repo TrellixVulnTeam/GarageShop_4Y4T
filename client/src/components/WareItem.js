@@ -6,18 +6,16 @@ const WareItem = ({ware}) => {
     const history = useHistory();
     
     return (
-        <Col md={3} className={"wareItem p-0 "} onClick={()=>{history.push(Ware_Route + '/' + ware.id)}}>
-            <div>
-                <img src={process.env.REACT_APP_API_URL + ware.img}/>
+        <Col md={3} className={"wareItem p-0 position-relative"} onClick={()=>{history.push(Ware_Route + '/' + ware.id)}}>
+            <div className = {'h-100'}>
+                <img className = {'imageWareItem'} src={process.env.REACT_APP_API_URL + ware.img}/>
             </div>
             <div className={'navNav text-start'}>
                 <p>{ware.name}</p>
             </div>
-            <div className={'navNav '}>
-                {ware.price}
-
+            <div className={'navNav mb-4 fontPrice'}>
+                {ware.price} ₽
             </div>
-
         </Col>
     );
 };

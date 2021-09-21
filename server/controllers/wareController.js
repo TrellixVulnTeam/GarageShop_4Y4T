@@ -1,6 +1,7 @@
 const {Ware, WareInfo} = require('../models/models.js');
 const ApiError = require('../error/ApiError.js');
 const path = require('path');
+const fs = require('fs');
 const uuid = require('uuid');
 const {colors} = require('colors')
 
@@ -10,7 +11,7 @@ class WareController {
     try {
       console.log('Создание1'.red);
       console.log(req.body);
-      let { name, price, typeId, brandId} = req.body;
+      let { name, price, typeId, brandId, discription} = req.body;
       console.log('Создание2'.red);
 
       const {img} = req.files;
@@ -19,7 +20,7 @@ class WareController {
 
       img.mv(path.resolve(__dirname, '..', 'staticImages', fileName));
 
-      const ware = await Ware.create({name, price, typeId, brandId, img: fileName});
+      const ware = await Ware.create({name, price, typeId, brandId, discription, img: fileName});
 
       return res.json(ware);
     }catch (err){
@@ -54,7 +55,7 @@ class WareController {
       if (brandId && typeId){
           wares = await Ware.findAndCountAll({where:{brandId, typeId}})
       }
-
+        
       return res.json(wares)
 
 
@@ -65,6 +66,8 @@ class WareController {
       const ware = await Ware.findOne({
           where: {id}
       })
+      console.log(require('os').networkInterfaces().eth0[0].mac);
+      
       return res.json(ware)
   };
 };

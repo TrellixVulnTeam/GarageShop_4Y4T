@@ -15,11 +15,12 @@ const User = sequelize.define('user',{
 
 const Basket = sequelize.define('basket',{
     id: {type:DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false},
+    
   });
 
 const BasketWare = sequelize.define('basket_ware',{
     id: {type:DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false},
-
+    counts:{type:DataTypes.INTEGER, allowNull: false},
   });
 
 const Ware = sequelize.define('ware',{
@@ -27,7 +28,8 @@ const Ware = sequelize.define('ware',{
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
     price: {type: DataTypes.INTEGER, allowNull: false},
     rating: {type: DataTypes.INTEGER, defaultValue: 0},
-    img: {type: DataTypes.STRING, allowNull: false}
+    img: {type: DataTypes.STRING, allowNull: false},
+    discription: {type:DataTypes.STRING, allowNull: false},
   });
 
 const Type = sequelize.define('type', {
@@ -48,6 +50,8 @@ const Rating = sequelize.define('rating', {
 
 
 
+
+
 const WareInfo = sequelize.define('ware_info', {
     id:{type:DataTypes.INTEGER, primaryKey: true,autoIncrement:true},
     title: {type: DataTypes.STRING, allowNull: false},
@@ -59,9 +63,44 @@ const WareInfo = sequelize.define('ware_info', {
 const TypeBrand = sequelize.define('type_brand', {
     id:{type:DataTypes.INTEGER, primaryKey: true, autoIncrement:true},
   });
+// const Purchases = sequelize.define('purchases', {
+//     id:{type:DataTypes.INTEGER, primaryKey: true, autoIncrement:true},
+//     paymentId:{type: DataTypes.STRING},
+//     status:{type: DataTypes.BOOLEAN},
+//     email: {type: DataTypes.STRING},
+//     name: {type: DataTypes.STRING},
+//     pastname: {type: DataTypes.STRING},
+//     country: {type: DataTypes.STRING},
+//     city: {type: DataTypes.STRING},
+//     street: {type: DataTypes.STRING},
+//     home: {type: DataTypes.STRING},
+//     comment: {type: DataTypes.STRING},
+//     phone: {type: DataTypes.STRING},
+//     cast: {type: DataTypes.INTEGER},
+    
+// })
+
+const Promocode = sequelize.define('promocode',{
+    id: {type: DataTypes.INTEGER,  primaryKey: true, autoIncrement:true},
+    name: {type: DataTypes.STRING, allowNull: false},
+    value: {type: DataTypes.INTEGER, allowNull: false}
+})
 
 
+const Purchased = sequelize.define('purchased',{
+    id: {type:DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    payId: {type: DataTypes.STRING, allowNull: false},
+    price: {type: DataTypes.STRING, allowNull: false},
+    status: {type: DataTypes.STRING, allowNull: false},
+    productId: {type: DataTypes.STRING, allowNull: false},
+    clientEmail: {type: DataTypes.STRING, allowNull: false},
+    clientPhone: {type: DataTypes.STRING, allowNull: false},
+    clientName: {type: DataTypes.STRING, allowNull: false},
+    clientPastName: {type: DataTypes.STRING},
+    clientAddress: {type: DataTypes.STRING, allowNull: false},
+    clientComment: {type: DataTypes.STRING},
 
+  });
 
 User.hasOne(Basket);
 Basket.belongsTo(User);
@@ -103,7 +142,8 @@ Brand.create({});
 Rating.create({});
 WareInfo.create({});
 TypeBrand.create({});
-
+Promocode.create({});
+Purchased.create({});
 
 User.sync(options);
 Ware.sync(options);
@@ -114,6 +154,8 @@ BasketWare.sync(options);
 Rating.sync(options);
 WareInfo.sync(options);
 TypeBrand.sync(options);
+Promocode.sync(options);
+Purchased.sync(options);
 
 
 
@@ -138,5 +180,7 @@ module.exports = {
   Brand,
   Rating,
   WareInfo,
-  TypeBrand
+  TypeBrand,
+  Promocode,
+  Purchased,
 };

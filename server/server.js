@@ -1,5 +1,13 @@
 require('dotenv').config();
 
+const http = require('http');
+const https = require('https');
+const fs = require('fs');
+var privateKey  = fs.readFileSync('../../etc/letsencrypt/live/neutrino-study.site/privkey.pem', 'utf8');
+var certificate = fs.readFileSync('../../etc/letsencrypt/live/neutrino-study.site/fullchain.pem', 'utf8');
+var credentials = {key: privateKey, cert: certificate};
+
+
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
 const sequelize = require('./db.js');
@@ -23,13 +31,17 @@ app.use('/api', router);
 //ниже этого ничего быть не должно
 app.use(errorHandler);
 
+
 const start = async ()=>{
   try {
     await sequelize.authenticate();
     await sequelize.sync;
 
-    app.listen(PORT, () => console.log(`Server run on port ${PORT}`.magenta));
+    let httpsCreateServer = https.createServer(credentials, app);
+
+    httpsCreateServer.listen(PORT, () => console.log(`Server run on port ${PORT}`.magenta));
   } catch (err) {
+    console.log('ERRORRRRRR')
     console.log(err);
   }
 }

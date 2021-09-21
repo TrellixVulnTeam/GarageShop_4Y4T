@@ -17,15 +17,15 @@ const BasketList = observer(() => {
     let wareInBacket;
     useEffect(()=>{
       try {
-        console.log(userName.id.id);
-            fetchBasketWare(userName.id.id).then(data=>{console.log(data);ware.setWaresInBasket(data)})
+          
+            fetchBasketWare(userName.id.id).then(data=>{ware.setWaresInBasket(data)})
+            
+          
       } catch (e) {
         console.log(e);
         history.push(Shop_Route);
       };
-      console.log(ware.waresInBasket);
-      console.log(ware.waresInBasket[0]);
-      console.log('aaa');
+
     },[])
     return (
       <Row className = {'m-5 basketItem'}>

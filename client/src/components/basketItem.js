@@ -9,7 +9,7 @@ import {Account_Route, Admin_Route, Login_Route, Shop_Route, Basket_Route} from 
 
 const BasketItem = observer(({wareBasket}) => {
     const [size, setSize] = useState('');
-
+    console.log(wareBasket);
     return (
       <Row className = {'mt-2'}>
         <Col className = {'d-flex m-auto align-items-center justify-content-center '} md = {2}>
@@ -38,8 +38,11 @@ const BasketItem = observer(({wareBasket}) => {
             </Dropdown>
 
         </Col>
+                <Col className = {'d-flex m-auto align-items-center justify-content-center'} md = {2}>
+            <h3>{wareBasket.count}</h3>
+        </Col>
         <Col className = {'d-flex m-auto align-items-center justify-content-center'} md = {3}>
-            <h3>{wareBasket.price}</h3>
+            <h3>{wareBasket.price * wareBasket.count}</h3>
         </Col>
       </Row>
     );

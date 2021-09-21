@@ -1,7 +1,8 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {Button, Card, Container, Form, Row, Col} from "react-bootstrap";
 import {NavLink, useHistory, useLocation} from "react-router-dom";
 import {Registration_Route, Shop_Route} from "../utils/constants";
+import {purchase, testPromo} from "../http/WareAPI";
 
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
@@ -10,8 +11,64 @@ const BasketForm = observer( () => {
     const {user, ware} = useContext(Context);
     const location = useLocation();
     const history = useHistory();
+    
+    
 
-
+    const buy = async ()=>{
+        let formData = {
+            email: email,
+            phone: phone,
+            name: name,
+            pastname: pastname,
+            country: country,
+            city: city,
+            street: street,
+            home: home,
+            comment: comment,
+            cast: cast,
+            waresInBasketId: waresInBasketId,
+            promo: promo
+            
+        };
+        try{
+            await purchase(formData).then(data =>{
+            console.log(data)
+            window.location = data; 
+            return null;
+        });
+        
+        } catch (e) {
+            setInclude(e.response.data.message);
+        }
+        
+    }
+    
+   
+    const testProm = async ()=>{
+        let discount;
+        try{
+            console.log('aaaaaaaaaaaaa');
+            const {data, value} = await testPromo({name: promo});
+            console.log(cast)
+            console.log(value);
+            discount = cast - (cast / 100 * value);
+            setCasts(discount)
+            setInclude(data + ' Скидка ' + value + '%!');
+            return
+        } catch (e) {
+            console.log(e);
+        }
+        return
+    }
+    
+    let cast = 0;
+    let waresInBasketId = [];
+    let userId;
+    
+    ware.waresInBasket.map((item)=>{cast = item.counts * item.price + cast;let warez = {counts: item.counts, id: item.id}; waresInBasketId.push(warez)})
+    
+        
+    const [promo, setPromo] = useState();
     const [email, setEmail] = useState();
     const [phone, setPhone] = useState();
     const [name, setName] = useState();
@@ -21,10 +78,15 @@ const BasketForm = observer( () => {
     const [street, setStreet] = useState();
     const [home, setHome] = useState();
     const [comment, setComment] = useState();
-
     const [include, setInclude] = useState();
-
-
+    const [casts, setCasts] = useState();
+    
+    
+   
+    useEffect(()=>{
+        
+        testProm();
+    },[promo])
     // const signIn = async ()=>{
     //     try {
     //       let data;
@@ -54,6 +116,7 @@ const BasketForm = observer( () => {
                                 <Col md={3}>
                                     <h4>Email</h4>
                                 </Col>
+                               
                                 <Col>
                                     <Form.Control name={'email'} value={email} onChange={(event)=> {setEmail(event.target.value);setInclude(null)}} placeholder={'Введите логин или e-mail'} type={'email'} />
                                 </Col>
@@ -122,17 +185,41 @@ const BasketForm = observer( () => {
                                     <Form.Control name={'comment'} value={comment} onChange={(event)=> {setComment(event.target.value);setInclude(null)}} placeholder={'Введите логин или e-mail'} type={'text'} />
                                 </Col>
                             </Row>
-
+                            
                             <div style={{color: 'red'}}>{include}</div>
 
                         </Form>
+                        
                     </Col>
                     <Col md={3} className = {'align-items-center justify-content-center d-flex'}>
                         <div className = {'align-items-center justify-content-center d-flex flex-column'}>
-                            <h4>И того:</h4>
-                            <Button  variant={'outline-success'}><h4>Оплатить</h4></Button>
+                            <div>
+                                <h4>И того:</h4>
+                                <div class = {'position-relative'}>
+                                <h4>{cast}</h4>
+                                <h4 class = {'position-absolute casts'}>{casts}</h4>
+                                </div>
+                                
+                            </div>
+                            
+                            <Button onClick={()=>{buy();}} variant={'outline-success'}><h4>Оплатить</h4></Button>
                         </div>
                     </Col>
+                   
+                    <Row className={'mt-5'}>
+                                <Row className={'text-center'} md={3}>
+                                    <h4 className={'m-auto'}>Промокод!</h4>
+                                </Row>
+                                <Col md={9} className={'d-flex m-auto'}>
+                                    <Col>
+                                        <Form.Control name={'promo'} value={promo} onChange={(event)=> {setPromo(event.target.value);setInclude(null);}} placeholder={'Введите промокод'} type={'text'} />
+                                    </Col>
+                                    <button className={'p-0 clear'} onClick={()=>{setPromo('')}}>
+                                        <h1 className={'m-0 ms-2'}>✕</h1>
+                                    </button>
+                                </Col>
+                                 
+                            </Row>
                 </Row>
             </Card>
     );

@@ -12,7 +12,7 @@ const Admin = observer(() => {
   
     const [button, setButton] = useState('home');
     return (
-        <Container style={{position:'relative',height:'100vh', background:'#efefef',zIndex:9}}fluid={true}>
+        <Container className={'admin'} style={{position:'relative',height:'100vh', background:'#efefef',zIndex:9}}fluid={true}>
             <SideNav
             onSelect={(selected) => {
 

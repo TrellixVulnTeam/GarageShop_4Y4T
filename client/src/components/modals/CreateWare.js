@@ -8,8 +8,9 @@ const CreateWare = observer(({show, onHide}) => {
     const {ware} = useContext(Context);
     const [info, setInfo]= useState([]);
     const [name, setName] = useState();
+    const [discription, setDiscription] = useState();
     const [price, setPrice] = useState();
-    const [file, setFile] = useState(null)
+    const [file, setFile] = useState(null);
     const addInfo = ()=>{
         setInfo([...info, {title: '', description:'',number: Date.now()}])
     };
@@ -26,6 +27,7 @@ const CreateWare = observer(({show, onHide}) => {
         formData.append('img', file);
         formData.append('brandId', ware.selectedBrand.id);
         formData.append('typeId', ware.selectedType.id);
+        formData.append('discription', discription);
         console.log(formData);
         createWare(formData).then(data => onHide());
 
@@ -62,10 +64,12 @@ const CreateWare = observer(({show, onHide}) => {
                                 )}
                             </Dropdown.Menu>
                     </Dropdown>
-                    <Form.Control className={'mt-2'} placeholder={'Введите название шмотки'} type={'text'} value={name} onChange = {(event)=>{setName(event.target.value)}} />
+                    <Form.Control className={'mt-2'} placeholder={'Введите название предмета'} type={'text'} value={name} onChange = {(event)=>{setName(event.target.value)}} />
 
-                    <Form.Control className={'mt-2'} placeholder={'Введите стоимость шмотки'} type={'number'} value={price} onChange = {(event)=>{setPrice(event.target.value)}} />
-
+                    <Form.Control className={'mt-2'} placeholder={'Введите стоимость предмета'} type={'number'} value={price} onChange = {(event)=>{setPrice(event.target.value)}} />
+                    
+                    <Form.Control as="textarea" rows={3} className={'mt-2'} placeholder={'Введите описание предмета'} type={'text'} value={discription} onChange = {(event)=>{setDiscription(event.target.value)}} />
+ 
                     <Form.Control className={'mt-2 '} title={'Добавьте изображение'} onChange={selectFile} type={'file'}>
 
                     </Form.Control>

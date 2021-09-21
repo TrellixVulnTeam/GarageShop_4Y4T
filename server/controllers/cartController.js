@@ -10,12 +10,9 @@ class cartController {
   console.log('addToCart'.red);
   console.log(req.query);
     try {
-      console.log('addToCart'.red);
-      let {wareId, userId} = req.query;
-      console.log('addToCart'.red);
-      console.log(wareId);
-      console.log(userId);
-      console.log('addToCart'.red);
+
+      let {wareId, counts, userId} = req.query;
+
 
       const basket = await Basket.findOne({
           where: {userId}
@@ -24,7 +21,7 @@ class cartController {
       let basketId = basket.id;
       console.log(basketId);
       console.log('userId');
-      const basketWare = await BasketWare.create({wareId:wareId, basketId: basketId});
+      const basketWare = await BasketWare.create({counts: counts, wareId:wareId, basketId: basketId});
         return
       // return res.json(ware);
     }catch (err){
@@ -52,19 +49,24 @@ class cartController {
       console.log('getAllWaresBasketUser'.red);
       let waresInBasket = await BasketWare.findAndCountAll({where:{basketId: basketId}});
       let wares = [];
+      let counts = [];
       let i = 0;
-      console.log(waresInBasket.count);
+      
       while (i < waresInBasket.count) {
           wares.push(waresInBasket.rows[i].dataValues.wareId);
+          counts.push(waresInBasket.rows[i].dataValues.counts)
           i++;
       };
       let data = [];
       let c = 0;
       while (c < wares.length) {
-        console.log('log'.rad);
-          data.push(await Ware.findOne({where: {id: wares[c]}}))
+        console.log('log');
+        let ware = await Ware.findOne({where: {id: wares[c]}})
+        ware.dataValues.counts = counts[c]
+        console.log(ware)
+          data.push(ware)
           c++;
-          console.log('log'.rad);
+
       };
 
 

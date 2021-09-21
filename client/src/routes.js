@@ -6,10 +6,12 @@ import {
     Login_Route,
     Registration_Route,
     Shop_Route,
+    ShopTypes_Route,
     Ware_Route
 } from "./utils/constants";
 import Basket from "./pages/Basket";
 import Shop from "./pages/Shop";
+import ShopTypes from "./pages/ShopTypes";
 import Auth from "./pages/Auth";
 import WarePage from "./pages/WarePage";
 import Account from "./pages/Account";
@@ -23,15 +25,16 @@ export const authRoutes = [
         path: Account_Route,
         Component: Account
     },
-    {
-        path: Basket_Route,
-        Component: Basket
-    },
+    
 ];
 export const publicRoutes = [
     {
         path: Shop_Route,
         Component: Shop
+    },
+    {
+        path: ShopTypes_Route + '/:id',
+        Component: ShopTypes
     },
     {
         path: Ware_Route + '/:id',
@@ -44,5 +47,9 @@ export const publicRoutes = [
     {
         path: Registration_Route,
         Component: Auth
+    },
+    {
+        path: Basket_Route,
+        Component: Basket
     },
 ];
